@@ -15,32 +15,12 @@ import traitement.component.PixelMono;
  */
 public class PGMParser extends ImageParser{
 
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public void read(File file) throws FileNotFoundException, ParseException {
-        Scanner sc = new Scanner(file);
-        int currentLine = 1;
-        try {
-            metadata.put("header", sc.next());
-            currentLine++;
-            metadata.put("width", sc.nextInt());
-            metadata.put("height", sc.nextInt());
-            currentLine++;
-            metadata.put("max_value", sc.nextInt());
-            
-            readPixels(sc);
-        } catch (NoSuchElementException e) {
-            throw new ParseException("Error parsing file" + file.getAbsolutePath(), currentLine);
-        }
-    }
     
     /**
     * {@inheritDoc}
     */
-    private void readPixels(Scanner sc) {
-        
+    @Override
+    public void readPixels(Scanner sc) {    
         px = new MatricePixel(getHeight(), getWidth());
         
         for (int i = 0; i < getHeight(); i++) {

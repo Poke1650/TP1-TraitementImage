@@ -5,8 +5,9 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import traitement.component.MatricePixel;
-import traitement.component.Pixel;
 
 /**
  *
@@ -30,6 +31,24 @@ public abstract class ImageParser implements IImageParser{
     @Override
     public void read(String path) throws FileNotFoundException, ParseException {
         read(new File(path));
+    }
+    
+    @Override
+    public void read(File file) throws FileNotFoundException, ParseException {
+        Scanner sc = new Scanner(file);
+        int currentLine = 1;
+        try {
+            metadata.put("header", sc.next());
+            currentLine++;
+            metadata.put("width", sc.nextInt());
+            metadata.put("height", sc.nextInt());
+            currentLine++;
+            metadata.put("max_value", sc.nextInt());
+            
+            readPixels(sc);
+        } catch (NoSuchElementException e) {
+            throw new ParseException("Error parsing file" + file.getAbsolutePath(), currentLine);
+        }
     }
     
     /**

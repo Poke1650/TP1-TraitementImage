@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Map;
+import java.util.Scanner;
+import traitement.component.MatricePixel;
 
 /**
  * Interface implémenté par les lecteurs d'image
@@ -47,16 +49,19 @@ public interface IImageParser {
      */
     public int getMaxValue();
     
-    //TODO: Change object for matrix
-    
     /**
      * @return un matrix de pixel représentant l'image
-     * TODO: change Object for instance of Matrix
      */
-    public Object getPixelMatrix();
+    public MatricePixel getPixelMatrix();
     
     /**
      * @return tout les metadata de l'image
      */
     public Map getMetadata();
+    
+    /**
+     * Charge les pixels en mémoire
+     * @param sc 
+     */
+    public void readPixels(Scanner sc);
 }
