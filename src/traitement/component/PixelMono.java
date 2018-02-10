@@ -30,7 +30,7 @@ public class PixelMono extends Pixel {
 
     /**
      * Set la teinte du pixel
-     * @param scale 
+     * @param scale teinte de gris
      */
     public void setScale(int scale) {
         this.scale = scale;

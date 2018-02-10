@@ -13,16 +13,16 @@ public interface IImageParser {
     
     /**
      * Lire et parse le fichier
-     * @param path
-     * @throws FileNotFoundException
+     * @param path le chemin vers le fichier
+     * @throws FileNotFoundException le fichier n'a pas été trouvé
      * @throws ParseException si le fichier est mal formé et ne peux pas être parser correctement
      */
     public void read(String path) throws FileNotFoundException, ParseException;
     
     /**
      * Lire et parse le fichier
-     * @param file
-     * @throws FileNotFoundException
+     * @param file le fichier à lire
+     * @throws FileNotFoundException le fichier n'a pas été trouvé
      * @throws ParseException si le fichier est mal formé et ne peux pas être parser correctement
      */
     public void read(File file) throws FileNotFoundException, ParseException;

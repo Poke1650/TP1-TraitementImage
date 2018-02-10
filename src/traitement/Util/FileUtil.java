@@ -9,9 +9,9 @@ import java.io.File;
 public class FileUtil {
     
     /**
-     * @param path
+     * @param path le chemin du fichier
      * @return l'extension du fichier
-     * @see https://stackoverflow.com/a/21974043
+     * From: https://stackoverflow.com/a/21974043
      */
     public static String getFileExtension(String path) {
         try {
@@ -22,7 +22,7 @@ public class FileUtil {
     }
     
     /**
-     * @param file
+     * @param file le fichier
      * @return l'extension du fichier
      */
     public static String getFileExtension(File file) {
