@@ -1,15 +1,12 @@
 package traitement;
 
 
-import image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import traitement.Util.FileUtil;
-import traitement.component.Pixel;
-import traitement.component.PixelMono;
 import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.parser.PGMParser;
 
