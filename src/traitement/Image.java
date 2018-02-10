@@ -3,8 +3,11 @@
  */
 package traitement;
 
+import traitement.component.Pixel;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Olivier Lemay Dostie, Antoine Gagnon et Francis Forest
@@ -127,10 +130,10 @@ public class Image {
    * @return Le pixel à la position [x][y] ou [y][x]
    * @throws java.io.IOException Position du pixel recherché invalide
    */
-  public Object getPixel(int x, int y) throws IOException {
+  public Pixel getPixel(int x, int y) throws IOException {
     if (0 > x | x < this.getWidth() | 0 > y | 0 < this.getHeight()) 
       throw new IOException("Position du pixel recherché invalide");
-    return pixels.getClass(); // Use pixels.getPixel(x, y);
+    return null; // Use pixels.getPixel(x, y);
   }
   
   /**
@@ -140,5 +143,39 @@ public class Image {
    */
   public Object getType() throws IOException {
     return getPixel(0, 0).getClass();
+  }
+  
+  /**
+   * Forme la chaine de caractère qui représente l'image dans un fichier
+   * @return Représentation de l'image en string
+   */
+  @Override
+  public String toString() {
+    String r = "";
+    
+    try {
+      if (getType() == "") {
+        r += "P2\n";
+      }
+      else if (getType() == "") {
+        r += "P3\n";
+      }
+    } catch (IOException ex) {
+      Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    r += getWidth() + " " + getHeight() + "\n" + getMaxValue() + "\n";
+    
+    int i = 0;
+    /*for (Pixel p : pixels) {
+      r += p.toString();
+      if (++i >= 12) {
+        i = 0;
+        r += "\n";
+      }
+      else {
+        r += " ";
+      }
+    }*/
+    return r;
   }
 }
