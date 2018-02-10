@@ -14,8 +14,9 @@ import java.util.logging.Logger;
  * @version 1.0
  * Classe qui contient une matrice de pixel et qui stocke ses propriétés
  */
-public class Image {
-  private int width;  // Retirer et simplement utiliser pixels.getWidth()?
+public class Image {    
+    
+  private int width;  // Retirer et simplement utiliser pixels.width()?
   private int height;
   private Object pixels;  // Use Matrice<Pixel>
   private int maxValue;

@@ -7,8 +7,6 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import traitement.Util.FileUtil;
-import traitement.component.Pixel;
-import traitement.component.PixelMono;
 import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.parser.PGMParser;
 
@@ -37,20 +35,9 @@ public class ImageFactory {
             try {
                 parser.read(file);
                 
-                StringBuilder imgStr = new StringBuilder();
+                //return new Image(parser.getPixelMatrix(), parser.getMaxValue());
                 
-                //TODO: changer pour retourner un Image et non une string
-                //String pour test seulement
-                imgStr.append(String.format("Header: %s\nH: %s W: %s\nMax: %s\n", parser.getHeader(), parser.getHeight(), parser.getWidth(), parser.getMaxValue()));
-                
-                for(Pixel[] line : parser.getPixelMatrix()){
-                    for(Pixel px : line) {
-                        imgStr.append(((PixelMono)px).getScale()).append(" ");
-                    }
-                    imgStr.append("\n");
-                }
-                
-                return imgStr.toString();
+                return null;
             } catch (FileNotFoundException | ParseException ex) {
                 Logger.getLogger(ImageFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
