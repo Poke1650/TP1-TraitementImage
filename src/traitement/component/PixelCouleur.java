@@ -25,7 +25,7 @@ public class PixelCouleur extends Pixel {
     
     /**
      * Construit un pixel de la couleur passer en paramètre
-     * @param couleur 
+     * @param couleur couleur du pixel
      */
     public PixelCouleur(Color couleur) {
         red = couleur.getRed();
@@ -35,7 +35,9 @@ public class PixelCouleur extends Pixel {
     
     /**
      * Construit un pixel de la couleur passer en paramètre
-     * @param couleur 
+     * @param r teinte de rouge
+     * @param g teinte de vert
+     * @param b teinte de bleu
      */
     public PixelCouleur(int r, int g, int b) {
         red = r;
@@ -59,7 +61,7 @@ public class PixelCouleur extends Pixel {
 
     /**
      * Set la teinte de rouge
-     * @param red 
+     * @param red teinte de rouge
      */
     public void setRed(int red) {
         this.red = red;
@@ -74,7 +76,7 @@ public class PixelCouleur extends Pixel {
     
     /**
      * Set la teinte de vert
-     * @param green 
+     * @param green teinte de vert
      */
     public void setGreen(int green) {
         this.green = green;
@@ -89,7 +91,7 @@ public class PixelCouleur extends Pixel {
     
     /**
      * Set la teinte de bleu
-     * @param blue 
+     * @param blue teinte de bleu
      */
     public void setBlue(int blue) {
         this.blue = blue;
