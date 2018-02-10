@@ -1,8 +1,9 @@
 /*
  * TP1 en Programmation d'environement de base de données   (420-276-SH)
  */
-package traitement;
+package image;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -24,6 +25,23 @@ public class Image {
   Image (Object pixels, int maxValue) {
     this.setMatrice(pixels);
     this.setMaxValue(maxValue);
+  }
+  
+  /**
+   * Constructeur de la classe Image à partir du nom d'un fichier png
+   * @param fileName Nom du fichier de l'image à sauvegarder dans la classe
+   */
+  Image (String fileName) {
+    File f = new File(fileName);
+    // Use ImageReader.read(this, f);
+  }
+  
+  /**
+   * Main pour faire des tests
+   * @param args 
+   */
+  public static void main(String[] args) {
+    Image test = new Image("", 255);
   }
   
   /**
@@ -59,8 +77,8 @@ public class Image {
   }
   
   /**
-   * 
-   * @param maxValue 
+   * Établi la valeur maximale des couleurs de l'image
+   * @param maxValue Nouvelle valeur maximale des couleurs de l'image
    */
   public void setMaxValue(int maxValue) {
     //for (Pixel p : pixels)
