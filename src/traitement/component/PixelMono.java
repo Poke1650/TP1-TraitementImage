@@ -36,6 +36,16 @@ public class PixelMono extends Pixel {
         this.scale = scale;
     }
 
+    /**
+     * @return représentation du pixel en string
+     */
+    @Override
+    public String toString() {
+        return "PixelMono[scale=" + scale + "]";
+    }
+    
+    
+
     
     
 }
