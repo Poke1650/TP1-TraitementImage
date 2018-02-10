@@ -1,7 +1,7 @@
 /*
  * TP1 en Programmation d'environement de base de données   (420-276-SH)
  */
-package image;
+package traitement;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +12,9 @@ import java.io.IOException;
  * Classe qui contient une matrice de pixel et qui stocke ses propriétés
  */
 public class Image {
-  private int width;  // Retirer et simplement utiliser pixels.width()?
+  private int width;  // Retirer et simplement utiliser pixels.getWidth()?
   private int height;
-  private Object pixels;
+  private Object pixels;  // Use Matrice<Pixel>
   private int maxValue;
 
   /**
@@ -22,7 +22,7 @@ public class Image {
    * @param pixels Matrice de pixels
    * @param maxValue Valeur maximale de la couleur de l'image
    */
-  Image (Object pixels, int maxValue) {
+  public Image (Object pixels, int maxValue) {
     this.setMatrice(pixels);
     this.setMaxValue(maxValue);
   }
@@ -31,7 +31,7 @@ public class Image {
    * Constructeur de la classe Image à partir du nom d'un fichier png
    * @param fileName Nom du fichier de l'image à sauvegarder dans la classe
    */
-  Image (String fileName) {
+  public Image (String fileName) {
     File f = new File(fileName);
     // Use ImageReader.read(this, f);
   }
@@ -83,8 +83,8 @@ public class Image {
   public void setMaxValue(int maxValue) {
     //for (Pixel p : pixels)
     //  if (p.getMax() > maxValue)
-    //    throw new IOException("La valeur maximale de la couleur 
-    //      n'est pas la plus grande valeur de la matrice");
+    //    throw new IOException("La valeur maximale de la couleur " +
+    //      "n'est pas la plus grande valeur de la matrice");
     this.maxValue = maxValue;
   }
 
@@ -130,6 +130,15 @@ public class Image {
   public Object getPixel(int x, int y) throws IOException {
     if (0 > x | x < this.getWidth() | 0 > y | 0 < this.getHeight()) 
       throw new IOException("Position du pixel recherché invalide");
-    return pixels.getClass();
+    return pixels.getClass(); // Use pixels.getPixel(x, y);
+  }
+  
+  /**
+   * Obtien le type des pixels de l'image
+   * @return la classe des pixels de l'image
+   * @throws java.io.IOException L'image n'est pas correctement instanciée
+   */
+  public Object getType() throws IOException {
+    return getPixel(0, 0).getClass();
   }
 }
