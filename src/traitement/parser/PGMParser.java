@@ -3,10 +3,9 @@ package traitement.parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import traitement.component.MatricePixel;
 import traitement.component.Pixel;
 import traitement.component.PixelMono;
 
@@ -40,15 +39,14 @@ public class PGMParser extends ImageParser{
     /**
     * {@inheritDoc}
     */
-    private Object readPixels(Scanner sc) {
+    private void readPixels(Scanner sc) {
         
-        px = new Pixel[getHeight()][getWidth()];
+        px = new MatricePixel(getHeight(), getWidth());
         
         for (int i = 0; i < getHeight(); i++) {
             for (int j = 0; j < getWidth(); j++) {
-                px[i][j] = new PixelMono(sc.nextInt());
+                px.setValue(i, j, new PixelMono(sc.nextInt()));
             }
         }
-        return px;
     }
 }

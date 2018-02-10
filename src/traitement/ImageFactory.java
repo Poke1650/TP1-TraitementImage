@@ -16,8 +16,7 @@ import traitement.parser.PGMParser;
  */
 public class ImageFactory {
     
-    //TODO: Change Object for Image
-    public static Object getImageFromFile(String path) throws UnsupportedFileFormatException {
+    public static Image getImageFromFile(String path) throws UnsupportedFileFormatException {
         return getImageFromFile(new File(path));
     }
     
@@ -27,17 +26,14 @@ public class ImageFactory {
      * @return instance d'image, peut être ImageCouleur ou ImageMono
      * @throws UnsupportedFileFormatException si le fichier n'est pas de type PGM ou PPM
      */
-    public static Object getImageFromFile(File file) throws UnsupportedFileFormatException {
+    public static Image getImageFromFile(File file) throws UnsupportedFileFormatException {
         
         if(FileUtil.getFileExtension(file).equalsIgnoreCase("pgm")) { //Image mono
-            PGMParser parser = new PGMParser();
             
+            PGMParser parser = new PGMParser();
             try {
                 parser.read(file);
-                
-                //return new Image(parser.getPixelMatrix(), parser.getMaxValue());
-                
-                return null;
+                return new Image(parser.getPixelMatrix(), parser.getMaxValue());     
             } catch (FileNotFoundException | ParseException ex) {
                 Logger.getLogger(ImageFactory.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -6,8 +6,8 @@ package traitement;
 import traitement.component.Pixel;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import traitement.component.MatricePixel;
+import traitement.component.PixelMono;
 
 /**
  * @author Olivier Lemay Dostie, Antoine Gagnon et Francis Forest
@@ -16,9 +16,7 @@ import java.util.logging.Logger;
  */
 public class Image {    
     
-  private int width;  // Retirer et simplement utiliser pixels.width()?
-  private int height;
-  private Object pixels;  // Use Matrice<Pixel>
+  private MatricePixel pixels;  // Use Matrice<Pixel>
   private int maxValue;
 
   /**
@@ -26,7 +24,7 @@ public class Image {
    * @param pixels Matrice de pixels
    * @param maxValue Valeur maximale de la couleur de l'image
    */
-  public Image (Object pixels, int maxValue) {
+  public Image (MatricePixel pixels, int maxValue) {
     this.setMatrice(pixels);
     this.setMaxValue(maxValue);
   }
@@ -39,44 +37,12 @@ public class Image {
     File f = new File(fileName);
     // Use ImageReader.read(this, f);
   }
-  
-  /**
-   * Main pour faire des tests
-   * @param args 
-   */
-  public static void main(String[] args) {
-    Image test = new Image("", 255);
-  }
-  
-  /**
-   * Établi un nouveau nombre de colonne de pixel pour l'image
-   * @param width Nombre de colonne de pixel de l'image
-   * @throws java.io.IOException Nombre de colonne de pixel invalide
-   */
-  public void setWidth(int width) throws IOException {
-    if (width < 0) 
-      throw new IOException("Nombre de colonne de pixel invalide");
-    this.width = width;
-    //this.pixels.setWidth(width);
-  }
-
-  /**
-   * Établi un nouveau nombre de ligne de pixel pour l'image
-   * @param height Nombre de ligne de pixel de l'image
-   * @throws java.io.IOException Nombre de ligne de pixel trop petit
-   */
-  public void setHeight(int height) throws IOException {
-    if (0 >= height) 
-      throw new IOException("Nombre de ligne de pixel invalide");
-    this.height = height;
-    //this.pixels.setHeight(height);
-  }
 
   /**
    * Établi une nouvelle matrice pour l'image
    * @param pixels Nouvelle matrice de pixel de l'image
    */
-  public void setMatrice(Object pixels) {
+  private void setMatrice(MatricePixel pixels) {
     this.pixels = pixels;
   }
   
@@ -97,7 +63,7 @@ public class Image {
    * @return Nombre de ligne de pixel de l'image
    */
   public int getWidth() {
-    return width; // Use pixels.getWidth();
+    return pixels.getWidth();
   }
 
   /**
@@ -105,7 +71,7 @@ public class Image {
    * @return Nombre de ligne de pixel de l'image
    */
   public int getHeight() {
-    return height;  // Use pixels.getHeight();
+    return pixels.getHeight();
   }
 
   /**
@@ -132,9 +98,21 @@ public class Image {
    * @throws java.io.IOException Position du pixel recherché invalide
    */
   public Pixel getPixel(int x, int y) throws IOException {
-    if (0 > x | x < this.getWidth() | 0 > y | 0 < this.getHeight()) 
-      throw new IOException("Position du pixel recherché invalide");
-    return null; // Use pixels.getPixel(x, y);
+    if(isInRange(x,y))
+        return pixels.getValue(y,x);
+    else
+       
+        throw new IndexOutOfBoundsException("Position du pixel recherché invalide");     
+  }
+  
+  /**
+   * @param x
+   * @param y
+   * @return si la position est dans les limites de la matrice
+   */
+  private boolean isInRange(int x, int y) {
+      return (0 <= x && x <= getWidth() &&
+              0 <= y && y <= getHeight());
   }
   
   /**
@@ -142,8 +120,13 @@ public class Image {
    * @return la classe des pixels de l'image
    * @throws java.io.IOException L'image n'est pas correctement instanciée
    */
-  public Object getType() throws IOException {
-    return getPixel(0, 0).getClass();
+  public String getType() {
+    try {
+        return getPixel(0, 0) instanceof PixelMono ? "P2" : "P3";
+    } catch (Exception e) {
+        return "ERROR";
+    }
+ 
   }
   
   /**
@@ -152,31 +135,6 @@ public class Image {
    */
   @Override
   public String toString() {
-    String r = "";
-    
-    try {
-      if (getType() == "") {
-        r += "P2\n";
-      }
-      else if (getType() == "") {
-        r += "P3\n";
-      }
-    } catch (IOException ex) {
-      Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    r += getWidth() + " " + getHeight() + "\n" + getMaxValue() + "\n";
-    
-    int i = 0;
-    /*for (Pixel p : pixels) {
-      r += p.toString();
-      if (++i >= 12) {
-        i = 0;
-        r += "\n";
-      }
-      else {
-        r += " ";
-      }
-    }*/
-    return r;
-  }
+    return getClass().getName() + "[type=" + getType() + ",width=" + getWidth() + ",height=" + getHeight() + ",maxValue=" + getMaxValue() + ",pixels=" + pixels.toString() + "]";
+   }
 }

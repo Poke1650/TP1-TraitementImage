@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+import traitement.component.MatricePixel;
 import traitement.component.Pixel;
 
 /**
@@ -20,9 +21,8 @@ public abstract class ImageParser implements IImageParser{
     
     /**
      * Matrix de pixel représentant l'image
-     * TODO: change Pixel for a Matrix instance
      */
-    Pixel[][] px;
+    MatricePixel px;
     
     /**
     * {@inheritDoc}
@@ -68,7 +68,7 @@ public abstract class ImageParser implements IImageParser{
     * {@inheritDoc}
     */
     @Override
-    public Pixel[][] getPixelMatrix() {
+    public MatricePixel getPixelMatrix() {
         return px;
     }
 
