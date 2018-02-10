@@ -12,6 +12,8 @@ import java.io.IOException;
  * Classe qui contient une matrice de pixel et qui stocke ses propriétés
  */
 public class Image {
+    
+    
   private int width;  // Retirer et simplement utiliser pixels.width()?
   private int height;
   private Object pixels;

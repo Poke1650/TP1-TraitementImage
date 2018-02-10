@@ -1,6 +1,7 @@
 package traitement;
 
 
+import image.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -37,20 +38,9 @@ public class ImageFactory {
             try {
                 parser.read(file);
                 
-                StringBuilder imgStr = new StringBuilder();
+                //return new Image(parser.getPixelMatrix(), parser.getMaxValue());
                 
-                //TODO: changer pour retourner un Image et non une string
-                //String pour test seulement
-                imgStr.append(String.format("Header: %s\nH: %s W: %s\nMax: %s\n", parser.getHeader(), parser.getHeight(), parser.getWidth(), parser.getMaxValue()));
-                
-                for(Pixel[] line : parser.getPixelMatrix()){
-                    for(Pixel px : line) {
-                        imgStr.append(((PixelMono)px).getScale()).append(" ");
-                    }
-                    imgStr.append("\n");
-                }
-                
-                return imgStr.toString();
+                return null;
             } catch (FileNotFoundException | ParseException ex) {
                 Logger.getLogger(ImageFactory.class.getName()).log(Level.SEVERE, null, ex);
             }
