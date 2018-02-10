@@ -1,5 +1,9 @@
 package traitement;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import traitement.exceptions.UnsupportedFileFormatException;
+
 /**
  *
  * @author Antoine Gagnon
@@ -7,24 +11,10 @@ package traitement;
 public class Main {
 
     public static void main(String[] args) {
-        Matrice matrice = new Matrice(7, 5);
-        
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 5; j++) {
-                matrice.setValue(i, j, i * 5 + j);
-            }
+        try {
+            System.out.println(ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.pgm"));
+        } catch (UnsupportedFileFormatException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        System.out.println(matrice.getHeight());
-        System.out.println(matrice.getWidth());
-        matrice.print();
-        
-        matrice.resize(10,10);
-        System.out.println("============");
-        
-        System.out.println(matrice.getHeight());
-        System.out.println(matrice.getWidth());
-        matrice.print();
-        
     }
 }
