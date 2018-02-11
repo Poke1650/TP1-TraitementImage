@@ -1,8 +1,9 @@
-package traitement.parser;
+package traitement.io.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -35,17 +36,20 @@ public abstract class ImageParser implements IImageParser{
     
     @Override
     public void read(File file) throws FileNotFoundException, ParseException {
+        
         Scanner sc = new Scanner(file);
         int currentLine = 1;
         try {
+            metadata.put("file_name", file.getName());
             metadata.put("header", sc.next());
             currentLine++;
             metadata.put("width", sc.nextInt());
             metadata.put("height", sc.nextInt());
             currentLine++;
             metadata.put("max_value", sc.nextInt());
-            
+
             readPixels(sc);
+
         } catch (NoSuchElementException e) {
             throw new ParseException("Error parsing file" + file.getAbsolutePath(), currentLine);
         }

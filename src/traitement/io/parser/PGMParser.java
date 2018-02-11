@@ -1,12 +1,7 @@
-package traitement.parser;
+package traitement.io.parser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import traitement.component.MatricePixel;
-import traitement.component.Pixel;
 import traitement.component.PixelMono;
 
 /**

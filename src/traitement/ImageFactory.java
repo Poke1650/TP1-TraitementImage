@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 import traitement.Util.FileUtil;
 import traitement.exceptions.UnsupportedFileFormatException;
-import traitement.parser.IImageParser;
-import traitement.parser.PGMParser;
-import traitement.parser.PPMParser;
+import traitement.io.parser.IImageParser;
+import traitement.io.parser.PGMParser;
+import traitement.io.parser.PPMParser;
 
 /**
  * Permet de crée un instance d'un image a partire d'un fichier directement.

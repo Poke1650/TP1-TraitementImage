@@ -1,10 +1,9 @@
-package traitement.parser;
+package traitement.io.parser;
 
-import java.nio.charset.MalformedInputException;
 import java.util.Scanner;
+
 import traitement.component.MatricePixel;
 import traitement.component.PixelCouleur;
-import traitement.component.PixelMono;
 
 /**
  *

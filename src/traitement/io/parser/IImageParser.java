@@ -1,4 +1,4 @@
-package traitement.parser;
+package traitement.io.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
