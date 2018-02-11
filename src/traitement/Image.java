@@ -78,7 +78,7 @@ public class Image {
    * Obtien la matrice des pixels de l'image
    * @return La matrice des pixels de l'image
    */
-  public Object getMatrice() {
+  public MatricePixel getMatrice() {
     return pixels;
   }
   
