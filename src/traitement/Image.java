@@ -100,8 +100,7 @@ public class Image {
   public Pixel getPixel(int x, int y) throws IOException {
     if(isInRange(x,y))
         return pixels.getValue(y,x);
-    else
-       
+    else  
         throw new IndexOutOfBoundsException("Position du pixel recherché invalide");     
   }
   
@@ -118,7 +117,6 @@ public class Image {
   /**
    * Obtien le type des pixels de l'image
    * @return la classe des pixels de l'image
-   * @throws java.io.IOException L'image n'est pas correctement instanciée
    */
   public String getType() {
     try {

@@ -3,7 +3,6 @@ package traitement.io.parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -11,10 +10,10 @@ import java.util.Scanner;
 import traitement.component.MatricePixel;
 
 /**
- *
+ * Implémentation générique de IImageParser
  * @author Antoine Gagnon
  */
-public abstract class ImageParser implements IImageParser{
+public abstract class ImageParser implements IImageParser {
 
     /**
      * Map contenant tout les metadata du fichier
@@ -34,6 +33,9 @@ public abstract class ImageParser implements IImageParser{
         read(new File(path));
     }
     
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void read(File file) throws FileNotFoundException, ParseException {
         
@@ -87,6 +89,9 @@ public abstract class ImageParser implements IImageParser{
         return px;
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void readMetadata(Scanner sc) {
         metadata.put("header", sc.next());

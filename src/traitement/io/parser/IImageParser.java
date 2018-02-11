@@ -51,7 +51,7 @@ public interface IImageParser {
     
     /**
      * Charge les pixels en mémoire
-     * @param sc 
+     * @param sc Scanner ouvert sur le fichier
      */
     public void readPixels(Scanner sc);
     
@@ -60,6 +60,10 @@ public interface IImageParser {
      */
     public MatricePixel getPixelMatrix();
     
+    /**
+     * Va lire tout les metadata de l'image
+     * @param sc Scanner ouvert sur le fichier
+     */
     public void readMetadata(Scanner sc);
     
     /**

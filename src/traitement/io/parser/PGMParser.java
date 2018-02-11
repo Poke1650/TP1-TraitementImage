@@ -5,7 +5,7 @@ import traitement.component.MatricePixel;
 import traitement.component.PixelMono;
 
 /**
- *
+ * Implémentation d'un parser spécifique au fichier de type PGM
  * @author Antoine Gagnon
  */
 public class PGMParser extends ImageParser{
