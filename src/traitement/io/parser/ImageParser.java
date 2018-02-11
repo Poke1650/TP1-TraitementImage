@@ -37,21 +37,13 @@ public abstract class ImageParser implements IImageParser{
     @Override
     public void read(File file) throws FileNotFoundException, ParseException {
         
+        metadata.put("file_name", file.getName());
         Scanner sc = new Scanner(file);
-        int currentLine = 1;
         try {
-            metadata.put("file_name", file.getName());
-            metadata.put("header", sc.next());
-            currentLine++;
-            metadata.put("width", sc.nextInt());
-            metadata.put("height", sc.nextInt());
-            currentLine++;
-            metadata.put("max_value", sc.nextInt());
-
-            readPixels(sc);
-
+           readMetadata(sc);
+           readPixels(sc);
         } catch (NoSuchElementException e) {
-            throw new ParseException("Error parsing file" + file.getAbsolutePath(), currentLine);
+            throw new ParseException("Error parsing file" + file.getAbsolutePath(), 0);
         }
     }
     
@@ -95,6 +87,14 @@ public abstract class ImageParser implements IImageParser{
         return px;
     }
 
+    @Override
+    public void readMetadata(Scanner sc) {
+        metadata.put("header", sc.next());
+        metadata.put("width", sc.nextInt());
+        metadata.put("height", sc.nextInt());
+        metadata.put("max_value", sc.nextInt());
+    }
+    
     /**
     * {@inheritDoc}
     */

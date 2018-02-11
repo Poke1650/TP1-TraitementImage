@@ -41,11 +41,7 @@ public class PixelMono extends Pixel {
      */
     @Override
     public String toString() {
-        return "PixelMono[scale=" + scale + "]";
+        return String.valueOf(scale);
     }
-    
-    
 
-    
-    
 }

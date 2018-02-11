@@ -50,18 +50,20 @@ public interface IImageParser {
     public int getMaxValue();
     
     /**
+     * Charge les pixels en mémoire
+     * @param sc 
+     */
+    public void readPixels(Scanner sc);
+    
+    /**
      * @return un matrix de pixel représentant l'image
      */
     public MatricePixel getPixelMatrix();
+    
+    public void readMetadata(Scanner sc);
     
     /**
      * @return tout les metadata de l'image
      */
     public Map getMetadata();
-    
-    /**
-     * Charge les pixels en mémoire
-     * @param sc 
-     */
-    public void readPixels(Scanner sc);
 }
