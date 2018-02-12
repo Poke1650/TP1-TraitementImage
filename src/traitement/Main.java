@@ -13,7 +13,7 @@ import traitement.io.writer.ImageWriter;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         Image img = null;
         Image imgColor = null;

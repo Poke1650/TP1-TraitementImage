@@ -2,6 +2,7 @@ package traitement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +24,9 @@ public class ImageFactory {
      * @param path le fichier PGM ou PPM
      * @return instance d'image, peut être ImageCouleur ou ImageMono
      * @throws UnsupportedFileFormatException si le fichier n'est pas de type PGM ou PPM
+     * @throws java.io.IOException
      */
-    public static Image getImageFromFile(String path) throws UnsupportedFileFormatException {
+    public static Image getImageFromFile(String path) throws UnsupportedFileFormatException, IOException {
         return getImageFromFile(new File(path));
     }
     
@@ -34,7 +36,7 @@ public class ImageFactory {
      * @return instance d'un image construit à partire d'un fichier
      * @throws UnsupportedFileFormatException si le fichier n'est pas de type PGM ou PPM
      */
-    public static Image getImageFromFile(File file) throws UnsupportedFileFormatException {
+    public static Image getImageFromFile(File file) throws UnsupportedFileFormatException, IOException {
         
         IImageParser parser = null;
         
