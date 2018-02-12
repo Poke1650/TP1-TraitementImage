@@ -10,7 +10,7 @@ import traitement.component.PixelCouleur;
  *
  * @author Antoine Gagnon
  */
-public class PPMParser extends ImageParser {
+public class PPMParser extends PNMParser {
 
   /**
    * {@inheritDoc}

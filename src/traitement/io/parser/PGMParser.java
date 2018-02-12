@@ -9,7 +9,7 @@ import traitement.component.PixelMono;
  *
  * @author Antoine Gagnon
  */
-public class PGMParser extends ImageParser {
+public class PGMParser extends PNMParser {
 
   /**
    * {@inheritDoc}

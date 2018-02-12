@@ -1,5 +1,6 @@
 package traitement;
 
+import traitement.util.FileUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,7 +8,6 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import traitement.Util.FileUtil;
 import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.io.parser.IImageParser;
 import traitement.io.parser.PGMParser;

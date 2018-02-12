@@ -1,4 +1,4 @@
-package traitement.Util;
+package traitement.util;
 
 import java.io.File;
 

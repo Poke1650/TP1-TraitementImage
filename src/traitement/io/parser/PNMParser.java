@@ -14,7 +14,7 @@ import traitement.component.MatricePixel;
  *
  * @author Antoine Gagnon
  */
-public abstract class ImageParser implements IImageParser {
+public abstract class PNMParser implements IImageParser {
 
   /**
    * Map contenant tout les metadata du fichier
