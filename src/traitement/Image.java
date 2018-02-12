@@ -54,16 +54,6 @@ public class Image implements Comparable {
   }
 
   /**
-   * Main pour faire des tests
-   *
-   * @param args
-   * @throws java.io.IOException
-   */
-  public static void main(String[] args) throws IOException {
-    Image test = new Image(new MatricePixel(), 255);
-  }
-
-  /**
    * Établi une nouvelle matrice pour l'image
    *
    * @param pixels Nouvelle matrice de pixel de l'image
