@@ -3,7 +3,7 @@
  */
 package traitement;
 
-import traitement.component.Pixel;
+import traitement.component.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -14,19 +14,20 @@ import java.util.logging.Logger;
  * @version 1.0
  * Classe qui contient une matrice de pixel et qui stocke ses propriétés
  */
-public class Image {    
-    
+public class Image implements Comparable {    
+  
   private int width;  // Retirer et simplement utiliser pixels.width()?
   private int height;
-  private Object pixels;  // Use Matrice<Pixel>
+  private MatricePixel pixels;  // Use Matrice<Pixel>
   private int maxValue;
 
   /**
    * Constructeur de la classe Image
    * @param pixels Matrice de pixels
    * @param maxValue Valeur maximale de la couleur de l'image
+   * @throws java.io.IOException
    */
-  public Image (Object pixels, int maxValue) {
+  public Image(MatricePixel pixels, int maxValue) throws IOException {
     this.setMatrice(pixels);
     this.setMaxValue(maxValue);
   }
@@ -35,17 +36,40 @@ public class Image {
    * Constructeur de la classe Image à partir du nom d'un fichier png
    * @param fileName Nom du fichier de l'image à sauvegarder dans la classe
    */
-  public Image (String fileName) {
+  public Image(String fileName) {
     File f = new File(fileName);
     // Use ImageReader.read(this, f);
+  }
+  
+  /** (Optionnel -- pas encore implémenté)
+   * Constructeur de la classe Image à partir de ses caractéristiques de base
+   * @param type Type des pixels de l'image
+   * @param width Largeur de l'imge en pixel
+   * @param height Heuteur de l'image en pixel
+   */
+  public Image(Class<?> type, int width, int height) {
+    /*if (type == PixelCouleur.class) {
+    } else if (type == PixelMono.class) {
+    }*/
+  }
+  
+  /**
+   * Constructeur de copie une image
+   * @param i Image à opier
+   * @throws java.io.IOException 
+   */
+  public Image(Image i) throws IOException {
+    this.setMatrice(i.getMatrice());
+    this.setMaxValue(i.getMaxValue());
   }
   
   /**
    * Main pour faire des tests
    * @param args 
+   * @throws java.io.IOException 
    */
-  public static void main(String[] args) {
-    Image test = new Image("", 255);
+  public static void main(String[] args) throws IOException {
+    Image test = new Image(new MatricePixel(), 255);
   }
   
   /**
@@ -76,19 +100,21 @@ public class Image {
    * Établi une nouvelle matrice pour l'image
    * @param pixels Nouvelle matrice de pixel de l'image
    */
-  public void setMatrice(Object pixels) {
+  public void setMatrice(MatricePixel pixels) {
     this.pixels = pixels;
   }
   
   /**
    * Établi la valeur maximale des couleurs de l'image
    * @param maxValue Nouvelle valeur maximale des couleurs de l'image
+   * @throws java.io.IOException Valeur incorrecte selon l'image
    */
-  public void setMaxValue(int maxValue) {
-    //for (Pixel p : pixels)
-    //  if (p.getMax() > maxValue)
-    //    throw new IOException("La valeur maximale de la couleur " +
-    //      "n'est pas la plus grande valeur de la matrice");
+  public void setMaxValue(int maxValue) throws IOException {
+//    for (Pixel[] p : pixels.getMatrice())
+//      for (Pixel elem : p)
+//        if (p.getMax() > maxValue)
+//          throw new IOException("La valeur maximale de la couleur " 
+//                  + "n'est pas la plus grande valeur de la matrice");
     this.maxValue = maxValue;
   }
 
@@ -97,7 +123,7 @@ public class Image {
    * @return Nombre de ligne de pixel de l'image
    */
   public int getWidth() {
-    return width; // Use pixels.getWidth();
+    return pixels.getWidth();
   }
 
   /**
@@ -105,14 +131,14 @@ public class Image {
    * @return Nombre de ligne de pixel de l'image
    */
   public int getHeight() {
-    return height;  // Use pixels.getHeight();
+    return pixels.getHeight();
   }
 
   /**
    * Obtien la matrice des pixels de l'image
    * @return La matrice des pixels de l'image
    */
-  public Object getMatrice() {
+  public MatricePixel getMatrice() {
     return pixels;
   }
   
@@ -134,7 +160,7 @@ public class Image {
   public Pixel getPixel(int x, int y) throws IOException {
     if (0 > x | x < this.getWidth() | 0 > y | 0 < this.getHeight()) 
       throw new IOException("Position du pixel recherché invalide");
-    return null; // Use pixels.getPixel(x, y);
+    return pixels.getValue(x, y);
   }
   
   /**
@@ -142,7 +168,7 @@ public class Image {
    * @return la classe des pixels de l'image
    * @throws java.io.IOException L'image n'est pas correctement instanciée
    */
-  public Object getType() throws IOException {
+  public Class<?> getType() throws IOException {
     return getPixel(0, 0).getClass();
   }
   
@@ -152,31 +178,64 @@ public class Image {
    */
   @Override
   public String toString() {
-    String r = "";
+    StringBuilder r = new StringBuilder();
     
     try {
-      if (getType() == "") {
-        r += "P2\n";
+      if (getType() == PixelCouleur.class) {
+        r.append("P2\n");
       }
-      else if (getType() == "") {
-        r += "P3\n";
+      else if (getType() == PixelMono.class) {
+        r.append("P3\n");
       }
     } catch (IOException ex) {
       Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
     }
-    r += getWidth() + " " + getHeight() + "\n" + getMaxValue() + "\n";
+    r.append(getWidth()).append(" ").append(getHeight()).append("\n").append(getMaxValue()).append("\n");
     
     int i = 0;
-    /*for (Pixel p : pixels) {
-      r += p.toString();
-      if (++i >= 12) {
-        i = 0;
-        r += "\n";
+    for (Pixel[] u: pixels.getMatrice()) {
+      for (Pixel elem: u) {
+        r.append(elem.toString());
+        if (++i >= 12) {
+          i = 0;
+          r.append("\n");
+        }
+        else {
+          r.append(" ");
+        }
       }
+    }
+    return r.toString();
+  }
+
+  /** (Permet de simplifier la méthode sont_identiques de TraitementImage. 
+   *   Il y a option de déplacer la définition dans le corps de celle-ci)
+   * Méthode pour comparer deux images à partir de l'interface Comparable
+   * @param t Image à comparer
+   * @return -1 si le type ou les dimmensions ne sont pas égales, 
+   *          1 si le contenu des images n'est pas identique et 0 si pareil
+   */
+  @Override
+  public int compareTo(Object t) {
+    try {
+      // Conditions de bases pas égales
+      if (this.getType() == ((Image)t).getType()
+              | this.getHeight() < ((Image)t).getHeight()
+              | this.getWidth() < ((Image)t).getWidth())
+        return -1;
       else {
-        r += " ";
+        // Contenu de l'image n'est pas 
+        for (int i = 0; i < this.getWidth(); i++) {
+          for (int j = 0; j < this.getHeight(); i++) {
+            if (!this.getPixel(i, j).equals(((Image)t).getPixel(i, j))) {
+              return 1;
+            }
+          }
+        }
       }
-    }*/
-    return r;
+    } catch (IOException ex) {
+      Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return 0;
   }
 }
