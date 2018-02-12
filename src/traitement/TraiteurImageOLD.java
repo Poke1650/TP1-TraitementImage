@@ -8,14 +8,9 @@ package traitement;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import static traitement.ImageFactory.getImageFromFile;
 import traitement.component.MatricePixel;
 import traitement.component.Pixel;
-import traitement.component.PixelCouleur;
 import traitement.exceptions.UnsupportedFileFormatException;
 
 
