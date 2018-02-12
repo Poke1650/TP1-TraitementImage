@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package traitement;
 
 /**
@@ -15,9 +10,20 @@ package traitement;
  */
 public class Matrice {
     
-    private int width;                                  //largeur de la matrice
-    private int height;                                 //hauteur de la matrice
-    private int[][] matrice;                            //valeurs de la matrice
+    /**
+     * Largeur de la matrice
+     */
+    private int width;
+    
+    /**
+     * Hauteur de la matrice
+     */
+    private int height;
+    
+    /**
+     * Valeurs de la matrice
+     */
+    private int[][] matrice;
     
     /**
      * Constructeur sans paramètres. La hauteur et la largeut sont de 0

@@ -1,17 +1,19 @@
-package traitement.parser;
+package traitement.io.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
-import traitement.component.Pixel;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import traitement.component.MatricePixel;
 
 /**
- *
+ * Implémentation générique de IImageParser
  * @author Antoine Gagnon
  */
-public abstract class ImageParser implements IImageParser{
+public abstract class ImageParser implements IImageParser {
 
     /**
      * Map contenant tout les metadata du fichier
@@ -20,9 +22,8 @@ public abstract class ImageParser implements IImageParser{
     
     /**
      * Matrix de pixel représentant l'image
-     * TODO: change Pixel for a Matrix instance
      */
-    Pixel[][] px;
+    MatricePixel px;
     
     /**
     * {@inheritDoc}
@@ -30,6 +31,22 @@ public abstract class ImageParser implements IImageParser{
     @Override
     public void read(String path) throws FileNotFoundException, ParseException {
         read(new File(path));
+    }
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void read(File file) throws FileNotFoundException, ParseException {
+        
+        metadata.put("file_name", file.getName());
+        Scanner sc = new Scanner(file);
+        try {
+           readMetadata(sc);
+           readPixels(sc);
+        } catch (NoSuchElementException e) {
+            throw new ParseException("Error parsing file" + file.getAbsolutePath(), 0);
+        }
     }
     
     /**
@@ -68,10 +85,21 @@ public abstract class ImageParser implements IImageParser{
     * {@inheritDoc}
     */
     @Override
-    public Pixel[][] getPixelMatrix() {
+    public MatricePixel getPixelMatrix() {
         return px;
     }
 
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void readMetadata(Scanner sc) {
+        metadata.put("header", sc.next());
+        metadata.put("width", sc.nextInt());
+        metadata.put("height", sc.nextInt());
+        metadata.put("max_value", sc.nextInt());
+    }
+    
     /**
     * {@inheritDoc}
     */

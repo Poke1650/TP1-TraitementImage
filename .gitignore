@@ -30,3 +30,5 @@ nbdist/
 .nb-gradle/
 /TraitementImages/nbproject/private/
 /TP1-TraitementImage/nbproject/private/
+
+UMLDiagrams/

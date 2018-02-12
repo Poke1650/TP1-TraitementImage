@@ -102,7 +102,7 @@ public class PixelCouleur extends Pixel {
      */
     @Override
     public String toString() {
-        return "PixelCouleur[r=" + getRed() + ",g=" + getGreen() + ",b=" + getBlue() + "]";
+        return getRed() + " " + getGreen() + " " + getBlue();
     }
     
      
