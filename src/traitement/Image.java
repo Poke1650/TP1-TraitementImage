@@ -38,18 +38,6 @@ public class Image implements Comparable {
     File f = new File(fileName);
     // Use ImageReader.read(this, f);
   }
-
-  /** (Optionnel -- pas encore implémenté)
-   * Constructeur de la classe Image à partir de ses caractéristiques de base
-   * @param type Type des pixels de l'image
-   * @param width Largeur de l'imge en pixel
-   * @param height Heuteur de l'image en pixel
-   */
-  public Image(Class<?> type, int width, int height) {
-    /*if (type == PixelCouleur.class) {
-    } else if (type == PixelMono.class) {
-    }*/
-  }
   
   /**
    * Constructeur de copie une image
@@ -84,7 +72,7 @@ public class Image implements Comparable {
    * @param maxValue Nouvelle valeur maximale des couleurs de l'image
    * @throws java.io.IOException Valeur incorrecte selon l'image
    */
-  public void setMaxValue(int maxValue) throws IOException {
+  public void setMaxValue(int maxValue) throws IndexOutOfBoundsException {
 //    for (Pixel[] p : pixels.getMatrice())
 //      for (Pixel elem : p)
 //        if (p.getMax() > maxValue)
@@ -167,36 +155,36 @@ public class Image implements Comparable {
    */
   @Override
   public String toString() {
-    StringBuilder r = new StringBuilder();
+//    StringBuilder r = new StringBuilder();
+//    
+//    try {
+//      if (getType() == PixelCouleur.class) {
+//        r.append("P2\n");
+//      }
+//      else if (getType() == PixelMono.class) {
+//        r.append("P3\n");
+//      }
+//    } catch (IOException ex) {
+//      Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
+//    }
+//    r.append(getWidth()).append(" ").append(getHeight()).append("\n").append(getMaxValue()).append("\n");
+//    
+//    int i = 0;
+//    for (Pixel[] u: pixels.getMatrice()) {
+//      for (Pixel elem: u) {
+//        r.append(elem.toString());
+//        if (++i >= 12) {
+//          i = 0;
+//          r.append("\n");
+//        }
+//        else {
+//          r.append(" ");
+//        }
+//      }
+//    }
+//    return r.toString();
     
-    try {
-      if (getType() == PixelCouleur.class) {
-        r.append("P2\n");
-      }
-      else if (getType() == PixelMono.class) {
-        r.append("P3\n");
-      }
-    } catch (IOException ex) {
-      Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    r.append(getWidth()).append(" ").append(getHeight()).append("\n").append(getMaxValue()).append("\n");
-    
-    int i = 0;
-    for (Pixel[] u: pixels.getMatrice()) {
-      for (Pixel elem: u) {
-        r.append(elem.toString());
-        if (++i >= 12) {
-          i = 0;
-          r.append("\n");
-        }
-        else {
-          r.append(" ");
-        }
-      }
-    }
-    return r.toString();
-    // À décommenter si vous préfrez cette méthode
-    //return getClass().getName() + "[type=" + getType() + ",width=" + getWidth() + ",height=" + getHeight() + ",maxValue=" + getMaxValue() + ",pixels=" + pixels.toString() + "]";
+    return getClass().getName() + "[type=" + getType() + ",width=" + getWidth() + ",height=" + getHeight() + ",maxValue=" + getMaxValue() + ",pixels=" + pixels.toString() + "]";
   }
 
   /** (Permet de simplifier la méthode sont_identiques de TraitementImage. 
@@ -210,16 +198,18 @@ public class Image implements Comparable {
   public int compareTo(Object t) {
     try {
       // Conditions de bases pas égales
-      if (this.getType() == ((Image)t).getType()
-              | this.getHeight() < ((Image)t).getHeight()
-              | this.getWidth() < ((Image)t).getWidth())
-        return -1;
-      else {
-        // Contenu de l'image n'est pas 
-        for (int i = 0; i < this.getWidth(); i++) {
-          for (int j = 0; j < this.getHeight(); i++) {
-            if (!this.getPixel(i, j).equals(((Image)t).getPixel(i, j))) {
-              return 1;
+      if (t instanceof Image) {
+        if (this.getType() == ((Image)t).getType()
+                || this.getHeight() < ((Image)t).getHeight()
+                || this.getWidth() < ((Image)t).getWidth())
+          return -1;
+        else {
+          // Contenu de l'image n'est pas 
+          for (int i = 0; i < this.getWidth(); i++) {
+            for (int j = 0; j < this.getHeight(); i++) {
+              if (!this.getPixel(i, j).equals(((Image)t).getPixel(i, j))) {
+                return 1;
+              }
             }
           }
         }
