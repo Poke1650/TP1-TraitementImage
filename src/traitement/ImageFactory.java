@@ -2,6 +2,7 @@ package traitement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,6 @@ import traitement.io.parser.PPMParser;
  * @author Antoine Gagnon
  */
 public class ImageFactory {
-
   /**
    * Crée un instance d'image a partire d'un fichier
    *
