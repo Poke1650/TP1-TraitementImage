@@ -7,9 +7,15 @@ package traitement;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import static traitement.ImageFactory.getImageFromFile;
 import traitement.component.MatricePixel;
 import traitement.component.Pixel;
+import traitement.component.PixelCouleur;
 import traitement.exceptions.UnsupportedFileFormatException;
 
 
@@ -28,10 +34,12 @@ public class TraiteurImageOLD {
   public static void main(String[] args) throws IOException, UnsupportedFileFormatException {
     File f = new File("../Sherbrooke_Frontenac_nuit.pgm");
     Image image1 = new Image((Image) getImageFromFile(f));
+    System.out.println(image1.toString());
     Image image2 = new Image(image1);
-    boolean b = sont_identiques(image1, image2);
+    System.out.println("Couleur prépondérante : " + couleur_preponderante(image1).toString());
+    System.out.println("Sont-elles identiques : " + sont_identiques(image1, image2));
     pivoter90(image1);
-    boolean c = sont_identiques(image1, image2);
+    System.out.println("Sont-elles identiques : " + sont_identiques(image1, image2));
   }
   
   /**
@@ -79,5 +87,57 @@ public class TraiteurImageOLD {
       }
     }*/
     
+  }
+  
+  /**
+   * (En construction)
+   * @param q Image où il faut trouver sa couleur prépondérante
+   * @return 
+   * From : https://stackoverflow.com/questions/8545590/find-the-most-popular-element-in-int-array
+   */
+  public static Pixel couleur_preponderante(Image q) {
+    Pixel[][] m = q.getMatrice().getMatrice();
+    if (m == null || m.length == 0 || m[0].length == 0)
+      return null;
+
+    Arrays.sort(m);
+
+    Pixel previous = m[0][0];
+    Pixel popular = m[0][0];
+    int count = 1;
+    int maxCount = 1;
+
+    for (int i = 1; i < m.length; i++) {
+      for (int j = 0; j < m[0].length; j++) {
+        if (m[i][0] == previous) {
+          count++;
+        }
+        else {
+          if (count > maxCount) {
+            popular = m[i-1][j-1];
+            maxCount = count;
+          }
+          previous = m[i][j-1];
+          count = 1;
+        }
+      }
+    }
+
+    return count > maxCount ? m[m.length-1][m[0].length-1] : popular;
+
+//    PixelCouleur []p = new PixelCouleur[i.getWidth() * i.getHeight()];
+//    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+//    for (Pixel<[] p : i.getMatrice()) {
+//      Integer count = map.get(i);
+//      map.put(p, count != null ? count+1 : 0);
+//    }
+//    Integer popular = Collections.max(map.entrySet(),
+//      new Comparator<Map.Entry<Integer, Integer>>() {
+//      @Override
+//      public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
+//        return o1.getValue().compareTo(o2.getValue());
+//      }
+//    }).getKey();
+//    return p;
   }
 }
