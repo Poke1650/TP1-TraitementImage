@@ -134,11 +134,11 @@ public class ImageWriter {
    */
   private void printHeader(PrintWriter pw) {
     pw.printf(
-            "%s\n%d %d\n%d\n", 
-            image.getType(),
-            image.getWidth(),
-            image.getHeight(),
-            image.getMaxValue()
+      "%s\n%d %d\n%d\n", 
+      image.getType(),
+      image.getWidth(),
+      image.getHeight(),
+      image.getMaxValue()
     );
   }
 }
