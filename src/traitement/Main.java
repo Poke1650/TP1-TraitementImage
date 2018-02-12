@@ -13,27 +13,27 @@ import traitement.io.writer.ImageWriter;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        
-        Image img = null;
-        Image imgColor = null;
-        try {
-            img = ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.pgm");
-            imgColor = ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.ppm");
-        } catch (UnsupportedFileFormatException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        ImageWriter iw = new ImageWriter(img, new File("test.pgm"));
-        try {
-            iw.write();
-            iw.setFile(new File("test2.ppm"));
-            iw.setImage(imgColor);
-            iw.write();
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(img);
-        System.out.println(imgColor);
+  public static void main(String[] args) {
+
+    Image img = null;
+    Image imgColor = null;
+    try {
+      img = ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.pgm");
+      imgColor = ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.ppm");
+    } catch (UnsupportedFileFormatException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
+
+    ImageWriter iw = new ImageWriter(img, new File("test.pgm"));
+    try {
+      iw.write();
+      iw.setFile(new File("test2.ppm"));
+      iw.setImage(imgColor);
+      iw.write();
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    System.out.println(img);
+    System.out.println(imgColor);
+  }
 }
