@@ -18,16 +18,16 @@ public class Main {
     Image img = null;
     Image imgColor = null;
     try {
-      img = ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.pgm");
-      imgColor = ImageFactory.getImageFromFile("Sherbrooke_Frontenac_nuit.ppm");
+      img = ImageFactory.getImageFromFile("images/input/Sherbrooke_Frontenac_nuit.pgm");
+      imgColor = ImageFactory.getImageFromFile("images/input/Sherbrooke_Frontenac_nuit.ppm");
     } catch (UnsupportedFileFormatException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    ImageWriter iw = new ImageWriter(img, new File("test.pgm"));
+    ImageWriter iw = new ImageWriter(img, new File("images/output/mono.pgm"));
     try {
       iw.write();
-      iw.setFile(new File("test2.ppm"));
+      iw.setFile(new File("images/output/couleur.ppm"));
       iw.setImage(imgColor);
       iw.write();
     } catch (IOException ex) {
