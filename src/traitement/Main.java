@@ -32,10 +32,11 @@ public class Main {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
     
-    imgTest = traiteur.extraire(imgTest,2, 2, 4, 4);
+    //imgTest = traiteur.extraire(imgTest,2, 2, 4, 4);
     //img = traiteur.reduire(img);
     //imgColor = traiteur.reduire(imgColor);
-    //img = traiteur.extraire(img, 30, 30, 60, 60);
+    img = traiteur.extraire(img, 0, 0, 100, 100);
+    //imgColor = traiteur.extraire(imgColor, 0, 0, 100, 100);
 
     ImageWriter iw = new ImageWriter(img, new File("images/output/mono.pgm"));
     try {
