@@ -16,7 +16,7 @@ import traitement.component.PixelMono;
  * @author Olivier Lemay Dostie, Antoine Gagnon et Francis Forest
  * @version 1.0 
  */
-public class Image implements Comparable {
+public class Image implements Comparable<Image> {
 
   private MatricePixel pixels;  // Use Matrice<Pixel>
   private int maxValue;
