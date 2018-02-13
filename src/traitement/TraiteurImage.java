@@ -140,11 +140,11 @@ public class TraiteurImage {
 
       MatricePixel newMat = new MatricePixel(newHeight, newWidth);    //matrice de pixels de la nouvelle image
 
-      for (int j = c1; j < c2; j++)       //selon la largeur de la nouvelle image
+       for (int j = 0; j < newHeight; j++)       //selon la largeur de la nouvelle image
       {
-          for (int k = p1; k < p2; k++)   //selon la hauteur de la nouvelle image
+          for (int k = 0; k < newWidth; k++)   //selon la hauteur de la nouvelle image
           {
-              newMat.setValue(j - newHeight, k - newWidth, i.getPixel(k, j)); //copie la valeur de la vielle image dans la nouvelle
+              newMat.setValue(j, k, i.getPixel(k + p1, j + c1)); //copie la valeur de la vielle image dans la nouvelle
           }
       }
 
