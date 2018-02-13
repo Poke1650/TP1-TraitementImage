@@ -8,7 +8,7 @@ package traitement.component;
  *
  * @author Antoine Gagnon
  */
-public abstract class Pixel {
+public abstract class Pixel implements Comparable<Pixel> {
 
   /**
    * Compare un pixel à un autre selon ses couleurs

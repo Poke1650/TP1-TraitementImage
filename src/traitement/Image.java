@@ -16,7 +16,7 @@ import traitement.component.PixelMono;
  * @author Olivier Lemay Dostie, Antoine Gagnon et Francis Forest
  * @version 1.0 
  */
-public class Image implements Comparable {
+public class Image implements Comparable<Image> {
 
   private MatricePixel pixels;  // Use Matrice<Pixel>
   private int maxValue;
@@ -173,7 +173,7 @@ public class Image implements Comparable {
    * contenu des images n'est pas identique et 0 si pareil
    */
   @Override
-  public int compareTo(Object t) {
+  public int compareTo(Image t) {
     try {
       // Conditions de bases pas égales
       if (t instanceof Image) {
