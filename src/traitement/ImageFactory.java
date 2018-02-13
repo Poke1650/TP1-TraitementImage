@@ -14,6 +14,7 @@ import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.io.parser.IImageParser;
 import traitement.io.parser.PGMParser;
 import traitement.io.parser.PPMParser;
+import traitement.util.FileUtil;
 
 /**
  * Permet de crée un instance d'un image a partire d'un fichier directement.
