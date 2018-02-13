@@ -8,6 +8,7 @@ import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.io.writer.ImageWriter;
 
 
+
 /**
  *
  * @author Antoine Gagnon
@@ -15,42 +16,130 @@ import traitement.io.writer.ImageWriter;
 public class Main {
 
   public static void main(String[] args) {
-
-    Image img = null;
-    Image imgColor = null;
-    Image imgTest = null;
-    TraiteurImageFR traiteur = new TraiteurImageFR();
     
-    try 
-    {
-      img = ImageFactory.getImageFromFile("images/input/Sherbrooke_Frontenac_nuit.pgm");
-      imgColor = ImageFactory.getImageFromFile("images/input/Sherbrooke_Frontenac_nuit.ppm");
-      imgTest = ImageFactory.getImageFromFile("images/input/test.pgm");
-      
-    } catch (UnsupportedFileFormatException ex) 
-    {
+    int passed = 0, failed = 0;
+    
+    Image imageColor = null, imageMono = null;
+    try {
+      //Test de lecture
+      imageColor = ImageFactory.getImageFromFile("images/input/couleur.ppm");
+      imageMono = ImageFactory.getImageFromFile(new File("images/input/mono.pgm"));
+      passed++;
+    } catch (UnsupportedFileFormatException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+      failed++;
     }
     
-    imgTest = traiteur.extraire(imgTest,2, 2, 4, 4);
-    //img = traiteur.reduire(img);
-    //imgColor = traiteur.reduire(imgColor);
-    //img = traiteur.extraire(img, 30, 30, 60, 60);
-
-    ImageWriter iw = new ImageWriter(img, new File("images/output/mono.pgm"));
+    System.out.println("Images lues:");
+    System.out.println("Couleur: " + imageColor);
+    System.out.println("Mono: " + imageMono);
+    
+    System.out.println("--------");
+    
+    System.out.println("Écriture des images non touché");
+    ImageWriter iw = new ImageWriter(imageMono, new File("images/output/mono_untouched.pgm"));
     try {
       iw.write();
-      iw.setFile(new File("images/output/test.pgm"));
-      iw.setImage(imgTest);
-      iw.write();
-      iw.setFile(new File("images/output/couleur.ppm"));
-      iw.setImage(imgColor);
-      iw.write();
+      iw.write(imageColor, new File("images/output/color_untouched.ppm"));
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
-    System.out.println(img);
-    System.out.println(imgColor);
-    System.out.println(imgTest);
+    System.out.println("Fait, voir images/output/");
+    
+    System.out.println("--------");
+    
+    System.out.println("Création d'une copie de imageColor et écriture sur le disque");
+    Image copieCouleur = new Image(imageColor);
+    Image copieMono = new Image(imageMono);
+    try {
+      iw.write(copieCouleur, new File("images/output/copieCouleur.ppm"));
+      iw.write(copieMono, new File("images/output/copieMono.pgm"));
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    System.out.println("Fait, voir images/output/");
+    System.out.println("--------");
+    
+    try {
+      System.out.println("Couleur preponmderante: " + TraiteurImage.couleurPreponderante(copieMono));
+      passed++;
+    } catch (Exception e) {
+      System.out.println("Impossible de trouver la couleur préponderante");
+      e.printStackTrace();
+      failed++;
+    }
+    
+    System.out.println("--------");
+    System.out.println("Création d'un image noirci et clair, voir images/output/");
+    
+    Image imgNoirci = new Image(imageColor);
+    Image imgClair = new Image(imageMono);
+    
+    for (int i = 0; i < 100; i++) {
+      TraiteurImage.eclaircir_noircir(imgNoirci, -1);
+      TraiteurImage.eclaircir_noircir(imgClair, 1);
+    }
+    
+    try {
+      iw.write(imgNoirci, new File("images/output/noirci.ppm"));
+      iw.write(imgClair, new File("images/output/clair.pgm"));
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    Image extrait = new Image(imageColor);
+    try {
+       extrait = TraiteurImage.extraire(imageColor, 0, 0, 50, 50);
+       passed++;
+    } catch (Exception e) {
+      System.out.println("Impossible de d'extraire");
+      e.printStackTrace();
+      failed++;
+    } 
+
+    try {
+      iw.write(extrait, new File("images/output/extrait.ppm"));
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    try {
+      extrait = TraiteurImage.reduire(extrait);
+      passed++;
+    } catch (Exception e) {
+      System.out.println("Impossible de réduire");
+      e.printStackTrace();
+      failed++;
+    }
+    
+    
+    try {
+      iw.write(extrait, new File("images/output/reduit.ppm"));
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    System.out.println("-----------\nTest d'égalité");
+    System.out.println("imageColor et copie d'un imageColor est pareille? " + TraiteurImage.sontIdentiques(imageColor, new Image(imageColor)));
+    System.out.println("imageColor et imageMono est pareille? " + TraiteurImage.sontIdentiques(imageColor, imageMono));
+    
+    try {
+      TraiteurImage.pivoter90(extrait);
+      passed++;
+    } catch (Exception e) {
+      System.out.println("Impossible de pivoter");
+      e.printStackTrace();
+      failed++;
+    }
+   
+    try {
+      iw.write(extrait, new File("images/output/pivot.ppm"));
+    } catch (IOException ex) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    System.out.println("\n\n--------------------------------\nRESULT: failed = " + failed + " passed = " + passed + " total = " + (failed + passed));
+
   }
 }

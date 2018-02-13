@@ -18,7 +18,14 @@ import traitement.component.PixelMono;
  */
 public class Image implements Comparable<Image> {
 
-  private MatricePixel pixels;  // Use Matrice<Pixel>
+  /**
+   * Matrice qui contient les pixels dans l'image
+   */
+  private MatricePixel pixels;
+  
+  /**
+   * Valeur maximal qu'un pixel peux avoir
+   */
   private int maxValue;
 
   /**
@@ -175,23 +182,17 @@ public class Image implements Comparable<Image> {
   @Override
   public int compareTo(Image t) {
     try {
-      // Conditions de bases pas égales
-      if (t instanceof Image) {
-        if (this.getType().equals(((Image) t).getType())
-                || this.getHeight() < ((Image) t).getHeight()
-                || this.getWidth() < ((Image) t).getWidth()) {
-          return -1;
-        } else {
-          // Contenu de l'image n'est pas 
-          for (int i = 0; i < this.getWidth(); i++) {
-            for (int j = 0; j < this.getHeight(); i++) {
-              if (!this.getPixel(i, j).equals(((Image) t).getPixel(i, j))) {
-                return 1;
-              }
-            }
+
+      Pixel[][] px = t.getMatrice().getMatrice();
+      
+      for (int i = 0; i < getHeight() && i < t.getHeight(); i++) {
+        for (int j = 0; j < getWidth() && j < t.getWidth(); j++) {
+          if(t.getPixel(j, i).compareTo(this.getPixel(j,i)) != 0) {
+            return -1;   
           }
         }
       }
+      
     } catch (Exception ex) {
       Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
     }
