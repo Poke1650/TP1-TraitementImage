@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.io.writer.ImageWriter;
-import traitement.*;
 
 
 /**
