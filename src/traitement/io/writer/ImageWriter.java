@@ -93,6 +93,7 @@ public class ImageWriter {
     setImage(image);
     setFile(file);
     write();
+    
   }
 
   /**
@@ -106,6 +107,8 @@ public class ImageWriter {
 
     printHeader(pw);
     printPixels(pw);
+    
+    pw.close();
   }
 
   /**
@@ -126,7 +129,6 @@ public class ImageWriter {
       }
       pw.print("\n");
     }
-    pw.print("\n");
   }
 
   /**
