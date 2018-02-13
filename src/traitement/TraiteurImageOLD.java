@@ -29,8 +29,8 @@ public class TraiteurImageOLD {
    */
   public static void main(String[] args) 
           throws IOException, UnsupportedFileFormatException {
-    File in = new File("Sherbrooke_Frontenac_nuit.pgm");
-    File out = new File("Test.pgm");
+    File in = new File("images/input/Sherbrooke_Frontenac_nuit.pgm");
+    File out = new File("images/output/Test.pgm");
     Image image1 = null;
     lire(image1, in);
     System.out.println(image1.toString());
