@@ -173,7 +173,7 @@ public class Image implements Comparable<Image> {
    * contenu des images n'est pas identique et 0 si pareil
    */
   @Override
-  public int compareTo(Object t) {
+  public int compareTo(Image t) {
     try {
       // Conditions de bases pas égales
       if (t instanceof Image) {
