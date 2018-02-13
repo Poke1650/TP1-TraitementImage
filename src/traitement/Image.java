@@ -121,6 +121,7 @@ public class Image implements Comparable {
    * @return Le pixel à la position [x][y] ou [y][x]
    */
   public Pixel getPixel(int x, int y) {
+    
     if (isInRange(x, y)) {
       return pixels.getValue(y, x);
     } else {

@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import traitement.exceptions.UnsupportedFileFormatException;
 import traitement.io.writer.ImageWriter;
+import traitement.*;
+
 
 /**
  *
@@ -17,15 +19,30 @@ public class Main {
 
     Image img = null;
     Image imgColor = null;
-    try {
+    Image imgTest = null;
+    TraiteurImageFR traiteur = new TraiteurImageFR();
+    
+    try 
+    {
       img = ImageFactory.getImageFromFile("images/input/Sherbrooke_Frontenac_nuit.pgm");
       imgColor = ImageFactory.getImageFromFile("images/input/Sherbrooke_Frontenac_nuit.ppm");
-    } catch (UnsupportedFileFormatException ex) {
+      imgTest = ImageFactory.getImageFromFile("images/input/test.pgm");
+      
+    } catch (UnsupportedFileFormatException ex) 
+    {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
+    imgTest = traiteur.extraire(imgTest,2, 2, 4, 4);
+    //img = traiteur.reduire(img);
+    //imgColor = traiteur.reduire(imgColor);
+    //img = traiteur.extraire(img, 30, 30, 60, 60);
 
     ImageWriter iw = new ImageWriter(img, new File("images/output/mono.pgm"));
     try {
+      iw.write();
+      iw.setFile(new File("images/output/test.pgm"));
+      iw.setImage(imgTest);
       iw.write();
       iw.setFile(new File("images/output/couleur.ppm"));
       iw.setImage(imgColor);
@@ -35,5 +52,6 @@ public class Main {
     }
     System.out.println(img);
     System.out.println(imgColor);
+    System.out.println(imgTest);
   }
 }
