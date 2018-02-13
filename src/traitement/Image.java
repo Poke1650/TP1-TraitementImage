@@ -3,9 +3,8 @@
  */
 package traitement;
 
-import traitement.component.*;
+import traitement.component.Pixel;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import traitement.component.MatricePixel;
@@ -16,7 +15,7 @@ import traitement.component.PixelMono;
  * @version 1.0 Classe qui contient une matrice de pixel et qui stocke ses
  * propriétés
  */
-public class Image implements Comparable {
+public class Image implements Comparable<Image> {
 
   private MatricePixel pixels;  // Use Matrice<Pixel>
   private int maxValue;
@@ -164,26 +163,23 @@ public class Image implements Comparable {
    * option de déplacer la définition dans le corps de celle-ci) Méthode pour
    * comparer deux images à partir de l'interface Comparable
    *
-   * @param t Image à comparer
+   * @param o Image à comparer
    * @return -1 si le type ou les dimmensions ne sont pas égales, 1 si le
    * contenu des images n'est pas identique et 0 si pareil
    */
   @Override
-  public int compareTo(Object t) {
+  public int compareTo(Image o) {
     try {
-      // Conditions de bases pas égales
-      if (t instanceof Image) {
-        if (this.getType().equals(((Image) t).getType())
-                || this.getHeight() < ((Image) t).getHeight()
-                || this.getWidth() < ((Image) t).getWidth()) {
-          return -1;
-        } else {
-          // Contenu de l'image n'est pas 
-          for (int i = 0; i < this.getWidth(); i++) {
-            for (int j = 0; j < this.getHeight(); i++) {
-              if (!this.getPixel(i, j).equals(((Image) t).getPixel(i, j))) {
-                return 1;
-              }
+      if (this.getType().equals(o.getType())
+              || this.getHeight() <  o.getHeight()
+              || this.getWidth() < o.getWidth()) {
+        return -1;
+      } else {
+        // Contenu de l'image n'est pas 
+        for (int i = 0; i < this.getWidth(); i++) {
+          for (int j = 0; j < this.getHeight(); i++) {
+            if (!this.getPixel(i, j).equals(o.getPixel(i, j))) {
+              return 1;
             }
           }
         }

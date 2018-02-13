@@ -47,6 +47,11 @@ public class PixelMono extends Pixel {
     return String.valueOf(scale);
   }
 
+  /**
+   * Compare le pixel à un autre pixle
+   * @param o
+   * @return 0 si les pixels sont identique, 1 si le pixel (this) est plus "bright" et -1 si il est plus sombre
+   */
   @Override
   public int compareTo(Pixel o) {
     
