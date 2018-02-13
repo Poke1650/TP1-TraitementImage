@@ -65,8 +65,7 @@ public class Main {
       System.out.println("Couleur preponmderante: " + TraiteurImage.couleurPreponderante(copieMono));
       passed++;
     } catch (Exception e) {
-      System.out.println("Impossible de trouver la couleur préponderante");
-      e.printStackTrace();
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Couleur préponderante", e);
       failed++;
     }
     
@@ -93,8 +92,7 @@ public class Main {
        extrait = TraiteurImage.extraire(imageColor, 0, 0, 50, 50);
        passed++;
     } catch (Exception e) {
-      System.out.println("Impossible de d'extraire");
-      e.printStackTrace();
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Extraction", e);
       failed++;
     } 
 
@@ -108,8 +106,7 @@ public class Main {
       extrait = TraiteurImage.reduire(extrait);
       passed++;
     } catch (Exception e) {
-      System.out.println("Impossible de réduire");
-      e.printStackTrace();
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Reduction", e);
       failed++;
     }
     
@@ -128,8 +125,7 @@ public class Main {
       TraiteurImage.pivoter90(extrait);
       passed++;
     } catch (Exception e) {
-      System.out.println("Impossible de pivoter");
-      e.printStackTrace();
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Pivoter", e);
       failed++;
     }
    
