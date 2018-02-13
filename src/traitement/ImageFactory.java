@@ -1,9 +1,11 @@
+/*
+ * TP1 en Programmation d'environement de base de données   (420-276-SH)
+ */
 package traitement;
 
-import traitement.util.FileUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
