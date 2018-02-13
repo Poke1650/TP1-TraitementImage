@@ -1,3 +1,6 @@
+/*
+ * TP1 en Programmation d'environement de base de données   (420-276-SH)
+ */
 package traitement.component;
 
 import java.awt.Color;
@@ -109,6 +112,35 @@ public class PixelCouleur extends Pixel {
   @Override
   public String toString() {
     return getRed() + " " + getGreen() + " " + getBlue();
+  }
+
+  /**
+   * Compare le pixel à un autre pixle
+   * @param o
+   * @return 0 si les pixels sont identique, 1 si le pixel (this) est plus "bright" et -1 si il est plus sombre
+   */
+  @Override
+  public int compareTo(Pixel o) {
+    
+    if(o instanceof PixelCouleur) {
+      PixelCouleur p = (PixelCouleur) o;
+      if(p.getBlue() == this.getBlue() && p.getGreen() == this.getGreen() && p.getRed() == this.getRed())
+        return 0;
+      else if((p.getBlue() + p.getRed() + p.getGreen()) > (this.getBlue() + this.getRed() + this.getGreen()))
+        return 1;
+      else
+        return 0;
+    }
+    else if(o instanceof PixelMono) {
+      PixelMono p = (PixelMono) o;
+      if(p.getScale() == this.getBlue() && p.getScale() == this.getRed() && p.getScale() == this.getGreen())
+        return 0;
+      if(p.getScale() > ((this.getBlue() + this.getRed() + this.getGreen())/3))
+        return -1;
+      else
+        return 1;
+    }
+    throw new UnsupportedOperationException("Can't compare" + o + " to " + this);
   }
 
 }

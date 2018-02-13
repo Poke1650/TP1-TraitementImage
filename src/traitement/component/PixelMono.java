@@ -1,3 +1,6 @@
+/*
+ * TP1 en Programmation d'environement de base de données   (420-276-SH)
+ */
 package traitement.component;
 
 /**
@@ -47,4 +50,31 @@ public class PixelMono extends Pixel {
     return String.valueOf(scale);
   }
 
+  /**
+   * Compare le pixel à un autre pixle
+   * @param o
+   * @return 0 si les pixels sont identique, 1 si le pixel (this) est plus "bright" et -1 si il est plus sombre
+   */
+  @Override
+  public int compareTo(Pixel o) {
+    
+    if(o instanceof PixelCouleur) {
+      PixelCouleur p = (PixelCouleur) o;
+      if(getScale() == p.getBlue() && getScale() == p.getRed() && getScale() == p.getGreen())
+        return 0;
+      if(getScale() > ((p.getBlue() + p.getRed() + p.getGreen())/3))
+        return 1;
+      else
+        return -1;
+    } else if (o instanceof PixelMono) {
+      if(getScale() == ((PixelMono) o).getScale())
+        return 0;
+      else if(getScale() > ((PixelMono) o).getScale())
+        return 1;
+      else
+        return -1;
+    }
+    
+    throw new UnsupportedOperationException("Can't compare" + o + " to " + this);
+  }
 }

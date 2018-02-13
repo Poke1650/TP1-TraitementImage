@@ -1,6 +1,6 @@
 traitement
-traitement.Util
 traitement.component
 traitement.exceptions
 traitement.io.parser
 traitement.io.writer
+traitement.util

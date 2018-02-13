@@ -5,18 +5,18 @@ package traitement;
 
 import traitement.component.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import traitement.component.MatricePixel;
 import traitement.component.PixelMono;
 
 /**
+ * Classe qui contient une matrice de pixel et qui stocke ses propriétés
+ * 
  * @author Olivier Lemay Dostie, Antoine Gagnon et Francis Forest
- * @version 1.0 Classe qui contient une matrice de pixel et qui stocke ses
- * propriétés
+ * @version 1.0 
  */
-public class Image implements Comparable {
+public class Image implements Comparable<Image> {
 
   private MatricePixel pixels;  // Use Matrice<Pixel>
   private int maxValue;
@@ -26,7 +26,6 @@ public class Image implements Comparable {
    *
    * @param pixels Matrice de pixels
    * @param maxValue Valeur maximale de la couleur de l'image
-   * @throws java.io.IOException
    */
   public Image(MatricePixel pixels, int maxValue) {
     this.setMatrice(pixels);
@@ -66,7 +65,6 @@ public class Image implements Comparable {
    * Établi la valeur maximale des couleurs de l'image
    *
    * @param maxValue Nouvelle valeur maximale des couleurs de l'image
-   * @throws java.io.IOException Valeur incorrecte selon l'image
    */
   public void setMaxValue(int maxValue) throws IndexOutOfBoundsException {
 //    for (Pixel[] p : pixels.getMatrice())
@@ -121,7 +119,6 @@ public class Image implements Comparable {
    * @return Le pixel à la position [x][y] ou [y][x]
    */
   public Pixel getPixel(int x, int y) {
-    
     if (isInRange(x, y)) {
       return pixels.getValue(y, x);
     } else {
@@ -130,8 +127,10 @@ public class Image implements Comparable {
   }
 
   /**
-   * @param x
-   * @param y
+   * Vérifie si la position du pixel recherché se trouve à l'intérieure de l'image
+   * 
+   * @param x Position du pixel recherché à partir de la gauche de l'image
+   * @param y Position du pixel recherché à partir du haut de l'image
    * @return si la position est dans les limites de la matrice
    */
   private boolean isInRange(int x, int y) {
@@ -159,20 +158,22 @@ public class Image implements Comparable {
    */
   @Override
   public String toString() {
-    return getClass().getName() + "[type=" + getType() + ",width=" + getWidth() + ",height=" + getHeight() + ",maxValue=" + getMaxValue() + ",pixels=" + pixels.toString() + "]";
+    if (this == null)
+      return "";
+    return getClass().getName() + "[type=" + getType() + ",width=" + getWidth() 
+            + ",height=" + getHeight() + ",maxValue=" + getMaxValue() 
+            + ",pixels=" + pixels.toString() + "]";
   }
 
   /**
-   * (Permet de simplifier la méthode sont_identiques de TraitementImage. Il y a
-   * option de déplacer la définition dans le corps de celle-ci) Méthode pour
-   * comparer deux images à partir de l'interface Comparable
+   * Méthode pour comparer deux images à partir de l'interface Comparable
    *
    * @param t Image à comparer
    * @return -1 si le type ou les dimmensions ne sont pas égales, 1 si le
    * contenu des images n'est pas identique et 0 si pareil
    */
   @Override
-  public int compareTo(Object t) {
+  public int compareTo(Image t) {
     try {
       // Conditions de bases pas égales
       if (t instanceof Image) {
