@@ -47,4 +47,26 @@ public class PixelMono extends Pixel {
     return String.valueOf(scale);
   }
 
+  @Override
+  public int compareTo(Pixel o) {
+    
+    if(o instanceof PixelCouleur) {
+      PixelCouleur p = (PixelCouleur) o;
+      if(getScale() == p.getBlue() && getScale() == p.getRed() && getScale() == p.getGreen())
+        return 0;
+      if(getScale() > ((p.getBlue() + p.getRed() + p.getGreen())/3))
+        return 1;
+      else
+        return -1;
+    } else if (o instanceof PixelMono) {
+      if(getScale() == ((PixelMono) o).getScale())
+        return 0;
+      else if(getScale() > ((PixelMono) o).getScale())
+        return 1;
+      else
+        return -1;
+    }
+    
+    throw new UnsupportedOperationException("Can't compare" + o + " to " + this);
+  }
 }
