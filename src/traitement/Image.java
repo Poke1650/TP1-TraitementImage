@@ -26,7 +26,6 @@ public class Image implements Comparable {
    *
    * @param pixels Matrice de pixels
    * @param maxValue Valeur maximale de la couleur de l'image
-   * @throws java.io.IOException
    */
   public Image(MatricePixel pixels, int maxValue) {
     this.setMatrice(pixels);
@@ -66,7 +65,6 @@ public class Image implements Comparable {
    * Établi la valeur maximale des couleurs de l'image
    *
    * @param maxValue Nouvelle valeur maximale des couleurs de l'image
-   * @throws java.io.IOException Valeur incorrecte selon l'image
    */
   public void setMaxValue(int maxValue) throws IndexOutOfBoundsException {
 //    for (Pixel[] p : pixels.getMatrice())
