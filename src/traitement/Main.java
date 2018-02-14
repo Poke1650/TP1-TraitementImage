@@ -27,14 +27,7 @@ public class Main {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
       failed++;
     }
-
-    System.out.println("Images lues:");
-    System.out.println("Couleur: " + imageColor);
-    System.out.println("Mono: " + imageMono);
-
-    System.out.println("--------");
-
-    System.out.println("Écriture des images non touché");
+    
     ImageWriter iw = new ImageWriter(imageMono, new File("images/output/mono_untouched.pgm"));
     try {
       iw.write();
@@ -42,11 +35,7 @@ public class Main {
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
-    System.out.println("Fait, voir images/output/");
 
-    System.out.println("--------");
-
-    System.out.println("Création d'une copie de imageColor et écriture sur le disque");
     Image copieCouleur = new Image(imageColor);
     Image copieMono = new Image(imageMono);
     try {
@@ -55,21 +44,6 @@ public class Main {
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
-
-    System.out.println("Fait, voir images/output/");
-    System.out.println("--------");
-
-    try {
-      System.out.println("Couleur preponderante v2: " + TraiteurImage.couleurPreponderanteV2(copieMono));
-      System.out.println("Couleur preponderante: " + TraiteurImage.couleurPreponderante(copieCouleur));
-      passed++;
-    } catch (Exception e) {
-      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Couleur préponderante", e);
-      failed++;
-    }
-
-    System.out.println("--------");
-    System.out.println("Création d'un image noirci et clair, voir images/output/");
 
     Image imgNoirci = new Image(imageColor);
     Image imgClair = new Image(imageMono);
@@ -84,6 +58,17 @@ public class Main {
       iw.write(imgClair, new File("images/output/clair.pgm"));
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    try {
+      System.out.println("Couleur preponderante v2: " + TraiteurImage.couleurPreponderanteV2(copieMono));
+      System.out.println("Couleur preponderante: " + TraiteurImage.couleurPreponderante(copieCouleur));
+      System.out.println("Couleur preponderante v2 couleur: " + TraiteurImage.couleurPreponderanteV2(imageColor));
+      System.out.println("Couleur preponderante v2 couleur: " + TraiteurImage.couleurPreponderanteV2(imgNoirci));
+      passed++;
+    } catch (Exception e) {
+      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Couleur préponderante", e);
+      failed++;
     }
 
     Image extrait = new Image(imageColor);

@@ -21,9 +21,12 @@ public class PPMParser extends PNMParser {
   @Override
   public void readPixels(Scanner sc) {
     px = new MatricePixel(getHeight(), getWidth());
+    
+    final int height = getHeight();
+    final int width = getWidth();
 
-    for (int i = 0; i < getHeight(); i++) {
-      for (int j = 0; j < getWidth(); j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         px.setValue(i, j, new PixelCouleur(sc.nextInt(), sc.nextInt(), sc.nextInt()));
       }
     }
