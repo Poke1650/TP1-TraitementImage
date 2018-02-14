@@ -34,51 +34,33 @@ public class TraiteurImage {
    * From : https://stackoverflow.com/questions/8545590/ ...
    * find-the-most-popular-element-in-int-array
    */
-  public static Pixel couleurPreponderante(Image q) {
+  public static String couleurPreponderante(Image q) {
     Pixel[][] m = q.getMatrice().getMatrice();
-    if (m == null || m.length == 0 || m[0].length == 0) {
-      return null;
-    }
-
-    Arrays.sort(m);
-
-    Pixel previous = m[0][0];
-    Pixel popular = m[0][0];
-    int count = 1;
-    int maxCount = 1;
-
-    for (int i = 1; i < m.length; i++) {
-      for (int j = 0; j < m[0].length; j++) {
-        if (m[i][0] == previous) {
-          count++;
-        } else {
-          if (count > maxCount) {
-            popular = m[i - 1][j - 1];
-            maxCount = count;
-          }
-          previous = m[i][j - 1];
-          count = 1;
+    
+    if(q.getType().equals("P3")) { //Color
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      
+      for(Pixel[] col : m) {
+        for(Pixel p : col) {
+           b += ((PixelCouleur) p).getBlue();
+           r += ((PixelCouleur) p).getRed();
+           g += ((PixelCouleur) p).getGreen();
         }
       }
-    }
-
-    return count > maxCount ? m[m.length - 1][m[0].length - 1] : popular;
-
-    /*
-    PixelCouleur []p = new PixelCouleur[i.getWidth() * i.getHeight()];
-    Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-    for (Pixel<[] p : i.getMatrice()) {
-      Integer count = map.get(i);
-      map.put(p, count != null ? count+1 : 0);
-    }
-    Integer popular = Collections.max(map.entrySet(),
-      new Comparator<Map.Entry<Integer, Integer>>() {
-      @Override
-      public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
-        return o1.getValue().compareTo(o2.getValue());
+      
+      if(r > b) {
+        if(r > g) {
+          return "Rouge";
+        }
+      } else if(b > g) {
+          return "Bleu";
       }
-    }).getKey();
-    return p;*/
+      return "Vert";
+      
+    }
+    return "";
   }
   
   /**
