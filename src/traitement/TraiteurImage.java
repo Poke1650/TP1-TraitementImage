@@ -5,7 +5,6 @@ package traitement;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import traitement.component.MatricePixel;
 import traitement.component.Pixel;
 import traitement.component.PixelCouleur;
@@ -20,7 +19,7 @@ import traitement.component.PixelMono;
 public class TraiteurImage {
 
   /**
-   * Constructeur de la classe TraiteurImageOLD
+   * Constructeur de la classe TraiteurImage sans paramètres
    */
   private TraiteurImage() {
     
@@ -203,7 +202,7 @@ public class TraiteurImage {
               b += ((PixelCouleur)p).getBlue();
           }
 
-          if (r > 0) r /= pixels.size();      //moyenne, si pas 0
+          if (r > 0) r /= pixels.size();      //on ne divise pas par 0
           if (g > 0) g /= pixels.size();
           if (b > 0) b /= pixels.size();
 
@@ -241,20 +240,21 @@ public class TraiteurImage {
   /**
    * Fait pivoter une image vers la droite de 90 degrées
    *
-   * @param img Image à faire pivoter
+   * @param img Image à faire pivoter de 90° dans le sens horaire
+   * @return la nouvelle image pivotée à 90° dans le sens horaire
    */
   public static Image pivoter90(Image img) {
 
-    int height = img.getHeight();
-    int width = img.getWidth();
+    int newHeight = img.getHeight();        //hauteur de l'image pivotée
+    int newWidth = img.getWidth();          //largeur de l'image pivotée
 
-    MatricePixel newMat = new MatricePixel(width, height);
+    MatricePixel newMat = new MatricePixel(newWidth, newHeight);
 
-    for (int i = 0; i < height; i++) 
+    for (int i = 0; i < newHeight; i++)     //pour chaque pixel de la hauteur de l'image pivotée
     {
-      for (int j = 0; j < width; j++) 
+      for (int j = 0; j < newWidth; j++)    //pour chaque pixel de la largeur de l'image pivotée
       {
-        newMat.setValue(j, height - 1 - i, img.getPixel(j, i));
+        newMat.setValue(j, newHeight - 1 - i, img.getPixel(j, i)); //copie le pxiel de l'image origniale dans l'image pivotée
       }
    }
 
