@@ -60,6 +60,33 @@ public class TraiteurImage {
     }
     return "";
   }
+  
+  /**
+   * Get la couleur moyenne d'une image. Retourne le pixel avec la couleur
+   * @param i image à traiter
+   * @return pixel avec la couleur moyenne de l'image.
+   */
+  public static Pixel couleurPreponderanteV2(Image i)
+  {
+      ArrayList<Pixel> pixels = new ArrayList();        //tous les pixels de l'image
+      
+      for (int j = 0; j < i.getHeight(); j++) {         //pour chaque ligne de l'image
+          for (int k = 0; k < i.getWidth(); k++) {      //pour chaque colonne de l'image
+              pixels.add(i.getPixel(k,j));              //ajouter le pixel à l'arrayList
+          }
+      }
+      
+      if (i.getType().equals("P3"))                     //image couleur
+      {
+          PixelCouleur pix = (PixelCouleur)getAveragePixel(pixels, "P3");
+          return pix; 
+      }
+      else                                              //image noir et blanc
+      {
+          PixelMono pix = (PixelMono)getAveragePixel(pixels, "P2");
+          return pix;
+      } 
+  }
 
   /**
    * Modifie la valeur de chaque pixel de l’image d’une valeur spécifiée, si v
