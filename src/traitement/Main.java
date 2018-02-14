@@ -122,7 +122,7 @@ public class Main {
     System.out.println("imageColor et imageMono est pareille? " + TraiteurImage.sontIdentiques(imageColor, imageMono));
     
     try {
-      TraiteurImage.pivoter90(extrait);
+      extrait = TraiteurImage.pivoter90(extrait);
       passed++;
     } catch (Exception e) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Pivoter", e);

@@ -241,33 +241,25 @@ public class TraiteurImage {
   /**
    * Fait pivoter une image vers la droite de 90 degrées
    *
-   * @param i Image à faire pivoter
-   * @throws java.io.IOException From:
-   * From: https://codereview.stackexchange.com/questions/40246/given-nn- ...
-   * matrix-rotate-it-by-90-degree-to-left-and-right-without-extra-memory
+   * @param img Image à faire pivoter
    */
-  public static void pivoter90(Image i) {
-    MatricePixel s = i.getMatrice();
-    //s.resize(i.getWidth(), i.getHeight());
-    int e = i.getWidth() - 1; // ou sinon Height
-    int c = e / 2;
-    int b = e % 2;
-    for (int r = c; r >= 0; r--) {
-      for (int d = c - r; d < c + r + b; d++) {
-        Pixel t = s.getValue(c - r, d);
-        s.setValue(c - r, d, s.getValue(d, e - c + r));
-        s.setValue(d, e - c + r, s.getValue(e - c + r, e - d));
-        s.setValue(e - c + r, e - d, s.getValue(e - d, c - r));
-        s.setValue(e - d, c - r, t);
-      }
-    }
-    i.setMatrice(s);
+  public static Image pivoter90(Image img) {
 
-    //Image temp = new Image(i1.getType(), i1.getWidth(), i1.getHeight());
-    //Image temp = new Image(i.getMatrice(), i.getMaxValue());
-    /*for (int x = 0; x < i.getWidth() / 2; x++) {
-      for (int y = 0; y < i.getHeight() / 2; y++) {
+    int height = img.getHeight();
+    int width = img.getWidth();
+
+    MatricePixel newMat = new MatricePixel(width, height);
+
+    for (int i = 0; i < height; i++) 
+    {
+      for (int j = 0; j < width; j++) 
+      {
+        newMat.setValue(j, height - 1 - i, img.getPixel(j, i));
       }
-    }*/
+   }
+
+    Image newImg = new Image(newMat, img.getMaxValue());
+    return newImg;
   }
+   
 }
