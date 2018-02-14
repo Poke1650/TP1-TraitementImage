@@ -136,6 +136,5 @@ public class Main {
     }
 
     System.out.println("\n\n--------------------------------\nRESULT: failed = " + failed + " passed = " + passed + " total = " + (failed + passed));
-
   }
 }
