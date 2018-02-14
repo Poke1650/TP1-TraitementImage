@@ -150,9 +150,9 @@ public class TraiteurImage {
     int posI = 0;                               //position I du pixel à placer dans la nouvelle matrice
     int posJ = 0;                               //position J du pixel à placer dans la nouvelle matrice
 
-    for (int j = 0; j < i.getHeight(); j+=2)    //bonds de 2 en hauteur pour l'image originale
+    for (int j = 0; j < i.getHeight() - 1; j+=2)    //bonds de 2 en hauteur pour l'image originale
     {
-        for (int k = 0; k < i.getWidth(); k+=2) //bonds de 2 en largeur pour l'image originale
+        for (int k = 0; k < i.getWidth() - 1; k+=2) //bonds de 2 en largeur pour l'image originale
         {   
             ArrayList<Pixel> pixels = new ArrayList();      //ajoute les pixels dans un array afin de faire la moyenne de leur valeur
             pixels.add(i.getPixel(k, j));
