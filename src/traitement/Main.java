@@ -60,7 +60,7 @@ public class Main {
     System.out.println("--------");
 
     try {
-      System.out.println("Couleur preponderante: " + TraiteurImage.couleurPreponderante(copieMono));
+      System.out.println("Couleur preponderante v2: " + TraiteurImage.couleurPreponderanteV2(copieMono));
       System.out.println("Couleur preponderante: " + TraiteurImage.couleurPreponderante(copieCouleur));
       passed++;
     } catch (Exception e) {
