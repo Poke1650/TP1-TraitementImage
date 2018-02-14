@@ -14,17 +14,17 @@ import traitement.component.PixelMono;
  */
 public class PGMParser extends PNMParser {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void readPixels(Scanner sc) {
-        px = new MatricePixel(getHeight(), getWidth());
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void readPixels(Scanner sc) {
+    px = new MatricePixel(getHeight(), getWidth());
 
-        for (int i = 0; i < getHeight(); i++) {
-            for (int j = 0; j < getWidth(); j++) {
-                px.setValue(i, j, new PixelMono(sc.nextInt()));
-            }
-        }
+    for (int i = 0; i < getHeight(); i++) {
+      for (int j = 0; j < getWidth(); j++) {
+        px.setValue(i, j, new PixelMono(sc.nextInt()));
+      }
     }
+  }
 }
