@@ -144,5 +144,25 @@ public class TraiteurImageFR {
                 }
     }
     
+    public Image pivoter90(Image img)
+    {
+        int height = img.getHeight();
+        int width = img.getWidth();
+        
+        MatricePixel newMat = new MatricePixel(width, height);
+       
+        for (int i = 0; i < height; i++) 
+        {
+            for (int j = 0; j < width; j++) 
+            {
+                newMat.setValue(j, height - 1 - i, img.getPixel(j, i));
+            }
+   
+        }
+       
+        Image newImg = new Image(newMat, img.getMaxValue());
+        return newImg;
+    }
+    
     
 }
