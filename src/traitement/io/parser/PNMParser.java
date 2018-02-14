@@ -48,6 +48,7 @@ public abstract class PNMParser implements IImageParser {
     try {
       readMetadata(sc);
       readPixels(sc);
+      sc.close();
     } catch (NoSuchElementException e) {
       throw new ParseException("Error parsing file" + file.getAbsolutePath(), 0);
     }

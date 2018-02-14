@@ -60,7 +60,8 @@ public class Main {
     System.out.println("--------");
 
     try {
-      System.out.println("Couleur preponmderante: " + TraiteurImage.couleurPreponderante(copieMono));
+      System.out.println("Couleur preponderante: " + TraiteurImage.couleurPreponderante(copieMono));
+      System.out.println("Couleur preponderante: " + TraiteurImage.couleurPreponderante(copieCouleur));
       passed++;
     } catch (Exception e) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Couleur préponderante", e);
@@ -100,8 +101,9 @@ public class Main {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
 
+    Image reduction = new Image(imageColor);
     try {
-      extrait = TraiteurImage.reduire(extrait);
+      reduction = TraiteurImage.reduire(reduction);
       passed++;
     } catch (Exception e) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Reduction", e);
@@ -109,7 +111,7 @@ public class Main {
     }
 
     try {
-      iw.write(extrait, new File("images/output/reduit.ppm"));
+      iw.write(reduction, new File("images/output/reduit.ppm"));
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -118,8 +120,9 @@ public class Main {
     System.out.println("imageColor et copie d'un imageColor est pareille? " + TraiteurImage.sontIdentiques(imageColor, new Image(imageColor)));
     System.out.println("imageColor et imageMono est pareille? " + TraiteurImage.sontIdentiques(imageColor, imageMono));
 
+    Image pivot = new Image(imageColor);
     try {
-      extrait = TraiteurImage.pivoter90(extrait);
+      pivot = TraiteurImage.pivoter90(imageColor);
       passed++;
     } catch (Exception e) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Pivoter", e);
@@ -127,7 +130,7 @@ public class Main {
     }
 
     try {
-      iw.write(extrait, new File("images/output/pivot.ppm"));
+      iw.write(pivot, new File("images/output/pivot.ppm"));
     } catch (IOException ex) {
       Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }

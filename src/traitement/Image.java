@@ -55,7 +55,23 @@ public class Image implements Comparable<Image> {
    * @param i Image à opier
    */
   public Image(Image i) {
-    this.setMatrice(i.getMatrice());
+    
+    MatricePixel newMat = new MatricePixel(i.getHeight(), i.getWidth());
+    
+    for (int j = 0; j < i.getHeight(); j++) {
+      for (int k = 0; k < i.getWidth(); k++) {
+        if(i.getType().equals("P3")) {
+          PixelCouleur p = (PixelCouleur) i.getPixel(k, j); 
+          newMat.setValue(j, k, new PixelCouleur(p.getRed(), p.getGreen(), p.getBlue()));
+        } else if(i.getType().equals("P2")) {
+          PixelMono p = (PixelMono) i.getPixel(k,j);
+          newMat.setValue(j, k, new PixelMono(p.getScale()));
+        }
+       
+      }
+    }
+    
+    this.setMatrice(newMat);
     this.setMaxValue(i.getMaxValue());
   }
 
