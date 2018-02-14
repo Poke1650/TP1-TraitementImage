@@ -15,18 +15,18 @@ import traitement.component.PixelCouleur;
  */
 public class PPMParser extends PNMParser {
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void readPixels(Scanner sc) {
-    px = new MatricePixel(getHeight(), getWidth());
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void readPixels(Scanner sc) {
+        px = new MatricePixel(getHeight(), getWidth());
 
-    for (int i = 0; i < getHeight(); i++) {
-      for (int j = 0; j < getWidth(); j++) {
-        px.setValue(i, j, new PixelCouleur(sc.nextInt(), sc.nextInt(), sc.nextInt()));
-      }
+        for (int i = 0; i < getHeight(); i++) {
+            for (int j = 0; j < getWidth(); j++) {
+                px.setValue(i, j, new PixelCouleur(sc.nextInt(), sc.nextInt(), sc.nextInt()));
+            }
+        }
     }
-  }
 
 }
